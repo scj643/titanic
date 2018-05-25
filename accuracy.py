@@ -105,10 +105,13 @@ if __name__ == '__main__':
         parsed = parse_csv(PARSED_DATA)
     else:
         parsed = parsed_match_list = parse_matches(match_list)
-    for i in os.listdir('models'):
+    models = os.listdir('models')
+    models.sort()
+    for i in models:
         test = parse_csv('models/'+i)
         total_matches = parse_match_accuracy(parsed, test)
-        print('Matches for "{}"'.format(i))
-        print('Total matches {}'.format(total_matches))
-        print('Missed matches {}'.format(len(test)-total_matches))
-        print("Accuracy {}".format(make_percent(total_matches/len(test))))
+        t = i.strip('.csv')
+        # print('Matches for "{}"'.format(i))
+        # print('Total matches {}'.format(total_matches))
+        # print('Missed matches {}'.format(len(test)-total_matches))
+        print("    {}: Accuracy: {}".format(t, make_percent(total_matches/len(test))))
